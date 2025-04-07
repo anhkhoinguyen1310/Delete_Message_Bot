@@ -1,5 +1,6 @@
 from telethon import TelegramClient, events
 import os
+import asyncio
 
 api_id = int(os.environ.get("API_ID"))
 api_hash = os.environ.get("API_HASH")
@@ -23,15 +24,17 @@ async def handler(event):
         if keyword in text:
             try:
                 await event.delete()
-                print("Deleted message:", text)
+                print("✅ Deleted message:", text)
             except Exception as e:
-                print("Error deleting:", e)
+                print("❌ Error deleting:", e)
             break
 
-print(">> Userbot started.")
-client.connect()
-if not client.is_user_authorized():
-    print("❌ Session invalid or not uploaded!")
-    exit()
+async def main():
+    await client.connect()
+    if not await client.is_user_authorized():
+        print("❌ Session invalid or not uploaded!")
+        return
+    print("✅ Connected! Bot is running...")
+    await client.run_until_disconnected()
 
-client.run_until_disconnected()
+asyncio.run(main())
