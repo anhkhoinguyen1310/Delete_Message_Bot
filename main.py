@@ -29,5 +29,9 @@ async def handler(event):
             break
 
 print(">> Userbot started.")
-client.start()
+client.connect()
+if not client.is_user_authorized():
+    print("❌ Session invalid or not uploaded!")
+    exit()
+
 client.run_until_disconnected()
