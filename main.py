@@ -1,12 +1,15 @@
 from telethon import TelegramClient, events
+from telethon.sessions import StringSession
 import os
 import asyncio
 
 api_id = int(os.environ.get("API_ID"))
 api_hash = os.environ.get("API_HASH")
+session_string = os.environ.get("STRING_SESSION")
 session_name = "railway_session"
 
-client = TelegramClient(session_name, api_id, api_hash)
+client = TelegramClient(StringSession(session_string), api_id, api_hash)
+
 
 TARGET_KEYWORDS = [
     "🔥 @Chatkeeperbot - number one group management service in Telegram",
